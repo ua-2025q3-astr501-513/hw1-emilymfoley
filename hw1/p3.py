@@ -41,10 +41,10 @@ def quadratic(a, b, c):
     discriminant = b**2 - 4*a*c
 
     if discriminant < 0:
-        return None, None           # no real roots
+        return (None, None)           # no real roots
     elif discriminant == 0:
         x = -b / (2*a)
-        return x, None             # one repeated root
+        return (x, None)             # one repeated root
     else:
         sqrt_disc = math.sqrt(discriminant)
         if b >= 0:
@@ -57,4 +57,4 @@ def quadratic(a, b, c):
         if x1 > x2:
             x1, x2 = x2, x1
 
-        return x1, x2
+        return (x1, x2)
