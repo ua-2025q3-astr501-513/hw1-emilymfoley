@@ -40,10 +40,10 @@ def quadratic(a, b, c):
     disc = b**2 - 4*a*c
 
     if disc < 0:
-        return [None, None]     # no real roots
+        return [None, None]      # no real roots
     elif disc == 0:
         x = -b / (2*a)
-        return [x, x]           # repeated root
+        return [x, x]            # repeated root
     else:
         sqrt_disc = math.sqrt(disc)
         if b >= 0:
