@@ -31,6 +31,8 @@
 # to overcome catastrophic cancellation.
 # Please make sure that you take care of all the special cases.
 
+import math
+
 def quadratic(a, b, c):
     """Numerically stable quadratic equation solver
 
@@ -64,4 +66,31 @@ def quadratic(a, b, c):
                 If there is only one real root, x2 == None.
                 If there is no real root, x1 == x2 == None.
     """
-    # TODO: implement the stable quadratic equation solver here
+    if a == 0:
+        raise ValueError("Coefficient 'a' cannot be zero for a quadratic equation.")
+
+    discriminant = b**2 - 4*a*c
+
+    if discriminant < 0:
+        # No real roots
+        return None, None
+    elif discriminant == 0:
+        # One real root
+        x = -b / (2*a)
+        return x, None
+    else:
+        sqrt_disc = math.sqrt(discriminant)
+        # Use numerically stable formula
+        if b >= 0:
+            x1 = (-b - sqrt_disc) / (2*a)
+        else:
+            x1 = (-b + sqrt_disc) / (2*a)
+
+        x2 = (c / a) / x1
+
+        # Ensure x1 < x2
+        if x1 > x2:
+            x1, x2 = x2, x1
+
+        return x1, x2
+
