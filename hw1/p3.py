@@ -40,9 +40,9 @@ def quadratic(a, b, c):
     discriminant = b**2 - 4*a*c
 
     if discriminant < 0:
-        return [None, None]
+        return (None, None)
     elif discriminant == 0:
-        return [-b / (2*a), None]
+        return (-b / (2*a), None)
     else:
         sqrt_disc = math.sqrt(discriminant)
         if b >= 0:
@@ -50,4 +50,4 @@ def quadratic(a, b, c):
         else:
             x1 = (-b + sqrt_disc) / (2*a)
         x2 = c / (a * x1)
-        return [min(x1, x2), max(x1, x2)]
+        return (min(x1, x2), max(x1, x2))
