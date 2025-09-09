@@ -17,7 +17,7 @@
 [project]
 name = "hw1"
 version = "0.1.0"
-dependencies = ["pytest"]
+dependencies = ["pytest", "numpy"]
 
 [build-system]
 requires = ["setuptools>=61.0"]
