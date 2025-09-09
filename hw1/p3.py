@@ -73,11 +73,11 @@ def quadratic(a, b, c):
 
     if discriminant < 0:
         # No real roots
-        return None, None
+        return [None, None]
     elif discriminant == 0:
         # One real root
         x = -b / (2*a)
-        return x, None
+        return [x, None]
     else:
         sqrt_disc = math.sqrt(discriminant)
         # Use numerically stable formula
@@ -92,5 +92,6 @@ def quadratic(a, b, c):
         if x1 > x2:
             x1, x2 = x2, x1
 
-        return x1, x2
+        return [x1, x2]
+
 
