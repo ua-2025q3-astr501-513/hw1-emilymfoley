@@ -34,37 +34,42 @@
 import math
 
 def quadratic(a, b, c):
-    """Numerically stable quadratic equation solver.
+    """Numerically stable quadratic equation solver
+
+    Computes the roots of a quadratic equation a x^2 + b x + c = 0
+    while avoiding catastrophic cancellation.
 
     Args:
-        a, b, c: coefficients for the quadratic equation a*x^2 + b*x + c = 0.
+        a, b, c: coefficients for the quadratic equation.
 
     Returns:
-        x1, x2: the two roots of the quadratic equation.
+        x1, x2: roots of the quadratic equation.
                 If there are two real roots, x1 < x2.
                 If there is only one real root, x2 == None.
-                If there is no real root, x1 == x2 == None.
+                If there is no real root or a==0, x1 == x2 == None.
     """
+    # Handle invalid quadratic
     if a == 0:
-        raise ValueError("Coefficient 'a' cannot be zero for a quadratic equation.")
-
-    discriminant = b**2 - 4*a*c
-
-    if discriminant < 0:
-        # No real roots
         return None, None
-    elif discriminant == 0:
-        # One real root
+
+    disc = b**2 - 4*a*c
+
+    # No real roots
+    if disc < 0:
+        return None, None
+    # One real root
+    elif disc == 0:
         x = -b / (2*a)
         return x, None
     else:
-        sqrt_disc = math.sqrt(discriminant)
-        # Numerically stable calculation
+        sqrt_disc = math.sqrt(disc)
+        # Use numerically stable formula
         if b >= 0:
             x1 = (-b - sqrt_disc) / (2*a)
         else:
             x1 = (-b + sqrt_disc) / (2*a)
 
+        # Second root computed via stable formula
         x2 = (c / a) / x1
 
         # Ensure x1 < x2
