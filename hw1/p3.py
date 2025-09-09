@@ -33,28 +33,47 @@
 
 import math
 
+import math
+
 def quadratic(a, b, c):
-    """Numerically stable quadratic equation solver"""
+    """Numerically stable quadratic equation solver.
+
+    Solves a x^2 + b x + c = 0 avoiding catastrophic cancellation.
+
+    Args:
+        a, b, c: coefficients of the quadratic equation.
+
+    Returns:
+        (x1, x2): tuple of two roots.
+                  If there are two real roots, x1 < x2.
+                  If there is one real root, x2 is None.
+                  If there are no real roots, x1 and x2 are None.
+    """
     if a == 0:
-        raise ValueError("Coefficient 'a' cannot be zero for a quadratic equation.")
+        raise ValueError("Coefficient 'a' cannot be zero.")
 
     discriminant = b**2 - 4*a*c
 
     if discriminant < 0:
-        return (None, None)           # no real roots
+        # No real roots
+        return None, None
     elif discriminant == 0:
+        # One real root
         x = -b / (2*a)
-        return (x, None)             # one repeated root
+        return x, None
     else:
         sqrt_disc = math.sqrt(discriminant)
+        # Numerically stable computation
         if b >= 0:
             x1 = (-b - sqrt_disc) / (2*a)
         else:
             x1 = (-b + sqrt_disc) / (2*a)
-        x2 = c / (a * x1)
 
-        # ensure x1 < x2
+        # Compute the other root using the conjugate trick
+        x2 = (c / a) / x1
+
+        # Ensure x1 < x2
         if x1 > x2:
             x1, x2 = x2, x1
 
-        return (x1, x2)
+        return x1, x2
