@@ -4,3 +4,6 @@ hw1.egg-info/
 __pycache__/
 *.pyc
 hw1.egg-info/
+__pycache__/
+*.pyc
+hw1.egg-info/
