@@ -35,17 +35,19 @@ import math
 
 def quadratic(a, b, c):
     if a == 0:
-        return [None,None]
-    disc = b**2 - 4*a*c
-    if disc < 0:
+        raise ValueError("Coefficient 'a' cannot be zero")
+
+    discriminant = b**2 - 4*a*c
+
+    if discriminant < 0:
         return [None, None]
-    elif disc == 0:
+    elif discriminant == 0:
         return [-b / (2*a), None]
     else:
-        sqrt_disc = math.sqrt(disc)
+        sqrt_disc = math.sqrt(discriminant)
         if b >= 0:
             x1 = (-b - sqrt_disc) / (2*a)
         else:
             x1 = (-b + sqrt_disc) / (2*a)
-        x2 = (c / a) / x1
+        x2 = c / (a * x1)
         return [min(x1, x2), max(x1, x2)]
