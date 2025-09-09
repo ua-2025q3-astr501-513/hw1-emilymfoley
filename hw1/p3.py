@@ -34,53 +34,18 @@
 import math
 
 def quadratic(a, b, c):
-    """Numerically stable quadratic equation solver
-
-    The standard quadratic formula
-
-        x = (-b +- sqrt(b^2 - 4ac)) / (2a)
-
-    is algebraically correct but can suffer from *catastrophic
-    cancellation* when b^2 >> 4ac and the sign of b matches the
-    chosen +-.
-    In that case, subtracting two nearly equal numbers causes a large
-    loss of precision.
-
-    A more stable alternative is obtained by multiplying top and
-    bottom by the conjugate, leading to two equivalent forms.
-    To avoid cancellation, choose the version that keeps the
-    subtraction well-separated:
-
-        x1 = (-b - sign(b) * sqrt(b^2 - 4ac)) / (2a)
-        x2 = (c / a) / x1
-
-    This way, at least one root is always computed stably.
-
-    Args:
-        a, b, c: coefficients for the quadratic equation
-                 a x^2 + b x + c = 0.
-
-    Returns:
-        x1, x2: the two roots of the quadratic equation.
-                If there are two real roots, x1 < x2.
-                If there is only one real root, x2 == None.
-                If there is no real root, x1 == x2 == None.
-    """
     if a == 0:
         raise ValueError("Coefficient 'a' cannot be zero for a quadratic equation.")
 
-    discriminant = b**2 - 4*a*c
+    disc = b**2 - 4*a*c
 
-    if discriminant < 0:
-        # No real roots
-        return [None, None]
-    elif discriminant == 0:
-        # One real root
+    if disc < 0:
+        return [None, None]     # no real roots
+    elif disc == 0:
         x = -b / (2*a)
-        return [x, None]
+        return [x, x]           # repeated root
     else:
-        sqrt_disc = math.sqrt(discriminant)
-        # Use numerically stable formula
+        sqrt_disc = math.sqrt(disc)
         if b >= 0:
             x1 = (-b - sqrt_disc) / (2*a)
         else:
@@ -88,10 +53,7 @@ def quadratic(a, b, c):
 
         x2 = (c / a) / x1
 
-        # Ensure x1 < x2
         if x1 > x2:
             x1, x2 = x2, x1
 
         return [x1, x2]
-
-
