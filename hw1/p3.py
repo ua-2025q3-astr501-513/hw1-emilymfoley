@@ -34,25 +34,26 @@
 import math
 
 def quadratic(a, b, c):
+    """Numerically stable quadratic equation solver"""
     if a == 0:
         raise ValueError("Coefficient 'a' cannot be zero for a quadratic equation.")
 
-    disc = b**2 - 4*a*c
+    discriminant = b**2 - 4*a*c
 
-    if disc < 0:
-        return None, None      # no real roots
-    elif disc == 0:
+    if discriminant < 0:
+        return None, None           # no real roots
+    elif discriminant == 0:
         x = -b / (2*a)
-        return x, x           # repeated root
+        return x, None             # one repeated root
     else:
-        sqrt_disc = math.sqrt(disc)
+        sqrt_disc = math.sqrt(discriminant)
         if b >= 0:
             x1 = (-b - sqrt_disc) / (2*a)
         else:
             x1 = (-b + sqrt_disc) / (2*a)
+        x2 = c / (a * x1)
 
-        x2 = (c / a) / x1
-
+        # ensure x1 < x2
         if x1 > x2:
             x1, x2 = x2, x1
 
