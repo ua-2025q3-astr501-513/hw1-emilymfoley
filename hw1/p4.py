@@ -60,13 +60,12 @@ class CoupledOscillators:
                 K[i, i+1] = -k            
         self.K = K
 
-        eigvals, eigvecs = np.linalg.eig(K / m)
+        eigvals, eigvecs = np.linalg.eig(K)
+        idx = np.argsort(np.real(eigvals))
+        self.Omega = np.sqrt(np.real(eigvals[idx]) / m)
+        self.V = eigvecs[:, idx]
+        self.M0 = np.linalg.solve(self.V, self.X0)
 
-        # Store results
-        self.Omega = np.sqrt(np.real(eigvals))   # angular frequencies
-        self.V = eigvecs
-
-        self.M0 = np.linalg.solve(self.V, X0)
         
     def __call__(self, t):
         """Calculate the displacements of the oscillators at time t.
@@ -78,10 +77,10 @@ class CoupledOscillators:
             np.ndarray: displacements of the oscillators at time t.
 
         """
-        cos_term = self.M0 * np.cos(self.Omega * t)
-        sin_term = (self.M0 / self.Omega) * np.sin(self.Omega * t)
-        M_t = cos_term + sin_term
+
+        M_t = self.M0 * np.cos(self.Omega * t)
         return self.V @ M_t
+
 
 
 if __name__ == "__main__":
