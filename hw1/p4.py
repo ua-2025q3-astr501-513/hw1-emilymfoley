@@ -50,7 +50,7 @@ class CoupledOscillators:
         self.k = k
         n = len(self.X0)
 
-        # --- Construct the stiffness matrix K (fixed ends) ---
+        # --- Construct the stiffness matrix K (fixed ends) ---#
         K = np.zeros((n, n), dtype=float)
         for i in range(n):
             K[i, i] = 2 * k               
