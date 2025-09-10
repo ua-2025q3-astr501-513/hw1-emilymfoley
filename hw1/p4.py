@@ -79,7 +79,7 @@ class CoupledOscillators:
 
         """
         cos_term = self.M0 * np.cos(self.Omega * t)
-        sin_term = (self.Mdot0 / self.Omega) * np.sin(self.Omega * t)
+        sin_term = (self.M0 / self.Omega) * np.sin(self.Omega * t)
         M_t = cos_term + sin_term
         return self.V @ M_t
 
