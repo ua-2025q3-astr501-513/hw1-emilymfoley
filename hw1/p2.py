@@ -87,7 +87,16 @@ def multibit_negative(A):
         list, with the least significant digit be the first.
 
     """
-    # TODO: implement the function here
+    n = len(A)
+    negA=[]
+    for i in range(n):
+        a = NAND(A[i],A[i])
+        negA.append(a)
+    
+    add_one = [1] + [0]*(n-1)
+
+    negA = multibit_adder(negA, add_one)
+    return negA
 
 # We are now ready to implement subtraction using multibit_adder() and
 # multibit_negative().
@@ -109,4 +118,9 @@ def multibit_subtractor(A, B):
         digit be the first.
 
     """
-    # TODO: implement the function here
+    if A==B:
+        return [0] * len(A)
+    else:
+        sub = multibit_adder(A, multibit_negative(B))
+        return sub
+

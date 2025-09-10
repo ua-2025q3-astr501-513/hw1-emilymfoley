@@ -16,8 +16,9 @@
 
 [project]
 name = "hw1"
-version = ...
-dependencies = [
-    "pytest",  # must include pytest because we use it for autograding
-    ...
-]
+version = "0.1.0"
+dependencies = ["pytest", "numpy"]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

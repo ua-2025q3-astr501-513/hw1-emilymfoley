@@ -31,37 +31,23 @@
 # to overcome catastrophic cancellation.
 # Please make sure that you take care of all the special cases.
 
+import math
+
 def quadratic(a, b, c):
-    """Numerically stable quadratic equation solver
+    if a == 0:
+        raise ValueError("Coefficient 'a' cannot be zero")
 
-    The standard quadratic formula
+    discriminant = b**2 - 4*a*c
 
-        x = (-b +- sqrt(b^2 - 4ac)) / (2a)
-
-    is algebraically correct but can suffer from *catastrophic
-    cancellation* when b^2 >> 4ac and the sign of b matches the
-    chosen +-.
-    In that case, subtracting two nearly equal numbers causes a large
-    loss of precision.
-
-    A more stable alternative is obtained by multiplying top and
-    bottom by the conjugate, leading to two equivalent forms.
-    To avoid cancellation, choose the version that keeps the
-    subtraction well-separated:
-
-        x1 = (-b - sign(b) * sqrt(b^2 - 4ac)) / (2a)
-        x2 = (c / a) / x1
-
-    This way, at least one root is always computed stably.
-
-    Args:
-        a, b, c: coefficients for the quadratic equation
-                 a x^2 + b x + c = 0.
-
-    Returns:
-        x1, x2: the two roots of the quadratic equation.
-                If there are two real roots, x1 < x2.
-                If there is only one real root, x2 == None.
-                If there is no real root, x1 == x2 == None.
-    """
-    # TODO: implement the stable quadratic equation solver here
+    if discriminant < 0:
+        return (None, None)
+    elif discriminant == 0:
+        return (-b / (2*a), None)
+    else:
+        sqrt_disc = math.sqrt(discriminant)
+        if b >= 0:
+            x1 = (-b - sqrt_disc) / (2*a)
+        else:
+            x1 = (-b + sqrt_disc) / (2*a)
+        x2 = c / (a * x1)
+        return (min(x1, x2), max(x1, x2))

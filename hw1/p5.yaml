@@ -42,6 +42,14 @@
   idea:  Develop a fast matrix multiplication algorithm to reduce
          energy consumption during deep learning inference.
 
+- topic: PDE Solvers
+  idea:  Use a finite volume scheme for the heat equation 
+         to model simplified thermal evolution of stellar interiors
+
+- topic: Fourier Transform and Spectral Analysis
+  idea:  Use the Fast Fourier Transform to analyze and filter publicly avaiable 
+        pulsar timing data from NANOGrav to isolate periodic signals.
+
 # TODO: Add two more project ideas below, following the same format as
 # the example above.
 # Remember to ensure that each idea is distinct and concise, and each
